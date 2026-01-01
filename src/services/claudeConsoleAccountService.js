@@ -442,6 +442,9 @@ class ClaudeConsoleAccountService {
       // 从Redis删除
       await client.del(`${this.ACCOUNT_KEY_PREFIX}${accountId}`)
 
+      // 删除定时检测配置
+      await client.del(`account:test_config:claude-console:${accountId}`)
+
       // 从共享账户集合中移除
       if (account.accountType === 'shared') {
         await client.srem(this.SHARED_ACCOUNTS_KEY, accountId)

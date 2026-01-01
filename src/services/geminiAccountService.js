@@ -624,6 +624,9 @@ async function deleteAccount(accountId) {
   const client = redisClient.getClientSafe()
   await client.del(`${GEMINI_ACCOUNT_KEY_PREFIX}${accountId}`)
 
+  // 删除定时检测配置
+  await client.del(`account:test_config:gemini:${accountId}`)
+
   // 从共享账户集合中移除
   if (account.accountType === 'shared') {
     await client.srem(SHARED_GEMINI_ACCOUNTS_KEY, accountId)

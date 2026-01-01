@@ -338,6 +338,9 @@ class CcrAccountService {
         throw new Error('CCR Account not found or already deleted')
       }
 
+      // 删除定时检测配置
+      await client.del(`account:test_config:ccr:${accountId}`)
+
       logger.success(`🗑️ Deleted CCR account: ${accountId}`)
       return { success: true }
     } catch (error) {

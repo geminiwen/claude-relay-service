@@ -183,6 +183,9 @@ class OpenAIResponsesAccountService {
     // 删除账户数据
     await client.del(key)
 
+    // 删除定时检测配置
+    await client.del(`account:test_config:openai-responses:${accountId}`)
+
     logger.info(`🗑️ Deleted OpenAI-Responses account: ${accountId}`)
 
     return { success: true }

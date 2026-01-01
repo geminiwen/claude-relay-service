@@ -270,6 +270,9 @@ async function deleteAccount(accountId) {
   // 从Redis中删除账户数据
   await client.del(accountKey)
 
+  // 删除定时检测配置
+  await client.del(`account:test_config:azure-openai:${accountId}`)
+
   // 从共享账户集合中移除
   await client.srem(SHARED_AZURE_OPENAI_ACCOUNTS_KEY, accountId)
 

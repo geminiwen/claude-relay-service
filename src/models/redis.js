@@ -1358,6 +1358,9 @@ class RedisClient {
 
   async deleteClaudeAccount(accountId) {
     const key = `claude:account:${accountId}`
+    const testConfigKey = `account:test_config:claude:${accountId}`
+    // 删除主账户和测试配置
+    await this.client.del(testConfigKey)
     return await this.client.del(key)
   }
 
@@ -1386,6 +1389,9 @@ class RedisClient {
 
   async deleteDroidAccount(accountId) {
     const key = `droid:account:${accountId}`
+    const testConfigKey = `account:test_config:droid:${accountId}`
+    // 删除主账户和测试配置
+    await this.client.del(testConfigKey)
     return await this.client.del(key)
   }
 

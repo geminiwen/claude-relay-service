@@ -281,6 +281,9 @@ class BedrockAccountService {
       const client = redis.getClientSafe()
       await client.del(`bedrock_account:${accountId}`)
 
+      // 删除定时检测配置
+      await client.del(`account:test_config:bedrock:${accountId}`)
+
       logger.info(`✅ 删除Bedrock账户成功 - ID: ${accountId}`)
 
       return { success: true }
